@@ -1,5 +1,6 @@
 package com.example.tp_tienda.controlador;
 
+import com.example.tp_tienda.dto.ProductDTO;
 import com.example.tp_tienda.entidades.ProductoEntidad;
 import com.example.tp_tienda.servicio.Homepage;
 import com.example.tp_tienda.servicio.MostrarProductos;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import com.example.tp_tienda.servicio.GestionTienda;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -25,7 +27,7 @@ public class TiendaControlador {
     @Autowired
     private GestionTienda gestionTienda;
 
-    //Guardar usuario como admin
+    // Guardar producto como admin
     @PostMapping("/admin")
     private ProductoEntidad guardarProducto(@RequestBody ProductoEntidad producto) {
         return this.gestionTienda.guardarProducto(producto);
@@ -50,35 +52,39 @@ public class TiendaControlador {
     private MostrarProductos mostrarProductos;
 
     @GetMapping("/admin")
-    private ArrayList<ProductoEntidad> obtenerProductos() {
+    private List<ProductDTO> obtenerProductos() {
         return mostrarProductos.obtenerProductos();
     }
 
+    // TODO: seguir implementando productDTO
     @GetMapping("/admin/{id}")
     private Optional<ProductoEntidad> obtenerProductoPorId(@PathVariable("id") Long id) {
         return this.mostrarProductos.obtenerPorId(id);
     }
 
     @GetMapping("/admin/agotados")
-    private String obtenerProductosAgotados() {
+    private List<ProductDTO> obtenerProductosAgotados() {
         return mostrarProductos.obtenerAgotados();
     }
 
     @GetMapping("/admin/tipo")
-    private ArrayList<ProductoEntidad> obtenerProductoPorTipoVacio() {
+    private <ProductoEntidad> obtenerProductoPorTipoVacio() {
         return this.mostrarProductos.obtenerProductos();
     }
 
+    // TODO: seguir implementando productDTO
     @GetMapping("/admin/tipo/{tipo}")
     private ArrayList<ProductoEntidad> obtenerProductoPorTipo(@PathVariable("tipo") String tipo) {
-        return this.mostrarProductos.obtenerPorTipo(tipo);
+        return this.mostrarProductos.obtenerPorTipo(tipo.toLowerCase());
     }
 
+    // TODO: seguir implementando productDTO
     @GetMapping("/cliente")
     private String obtenerProductosParaCliente() {
         return mostrarProductos.obtenerProductosParaCliente();
     }
 
+    // TODO: seguir implementando productDTO
     @GetMapping("/cliente/tipo/{tipo}")
     private String obtenerProductosPorTipoParaCliente(@PathVariable("tipo") String tipo) {
         return mostrarProductos.obtenerPorTipoCliente(tipo);
