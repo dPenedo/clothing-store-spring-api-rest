@@ -6,11 +6,16 @@ public class ProductDTO {
     private Long id;
     private String nombre;
     private TipoProducto tipo = TipoProducto.SIN_TIPO;
-    private int stock;
-    private int precioCosto;
+    private Integer stock;
+    private Integer precioCosto;
     private int precioVenta;
 
-    public ProductDTO(Long id, String nombre, TipoProducto tipoProducto, int precioCosto, int precioVenta) {
+    public ProductDTO(Long id, String nombre, TipoProducto tipoProducto, Integer stock, Integer precioCosto, int precioVenta) {
+        this.id = id;
+        this.nombre = nombre;
+        this.tipo = tipoProducto;
+        this.precioCosto = precioCosto;
+        this.precioVenta = precioVenta;
     }
 
     public Long getId() {
@@ -37,19 +42,19 @@ public class ProductDTO {
         this.tipo = tipo;
     }
 
-    public int getStock() {
+    public Integer getStock() {
         return stock;
     }
 
-    public void setStock(int stock) {
+    public void setStock(Integer stock) {
         this.stock = stock;
     }
 
-    public int getPrecioCosto() {
+    public Integer getPrecioCosto() {
         return precioCosto;
     }
 
-    public void setPrecioCosto(int precioCosto) {
+    public void setPrecioCosto(Integer precioCosto) {
         this.precioCosto = precioCosto;
     }
 

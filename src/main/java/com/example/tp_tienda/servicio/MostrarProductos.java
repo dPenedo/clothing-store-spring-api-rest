@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import static com.example.tp_tienda.map.ProductMapper.toDTO;
 
 import java.util.ArrayList;
@@ -20,39 +21,14 @@ import java.util.stream.Collectors;
 public class MostrarProductos implements IMuestraTienda {
     @Autowired
     ProductoRepositorio productoRepositorio;
-    @Autowired
-    Gson gson;
 
     @Override
     public List<ProductDTO> obtenerProductos() {
-        List<ProductoEntidad> productos = (List<ProductoEntidad>) productoRepositorio.findAll();
-        return productos.stream()
-                .map(ProductMapper::toDTO)
-                .collect(Collectors.toList());
+        ArrayList<ProductoEntidad> productosEnt = (ArrayList<ProductoEntidad>) productoRepositorio.findAll();
+        List<ProductDTO> productos = (List<ProductDTO>) productosEnt.stream().map(prod -> toDTO(prod)).collect(Collectors.toList());
+        return productos;
     }
 
-    @Override
-    public String obtenerProductosParaCliente() {
-        ArrayList<ProductoEntidad> productosCompletos = (ArrayList<ProductoEntidad>) productoRepositorio.findAll();
-        ArrayList<JsonObject> productosSinCosto = new ArrayList<>();
-        for (ProductoEntidad producto : productosCompletos) {
-            JsonObject jsonObject = new JsonObject();
-            jsonObject.addProperty("id", producto.getId());
-            jsonObject.addProperty("nombre", producto.getNombre());
-            if (producto.getTipo() != TipoProducto.SIN_TIPO) {
-                jsonObject.addProperty("tipo", producto.getTipo().toString());
-            }
-            // Indica el stock únicamente si quedan menos de 10 unidades
-            if (producto.getStock() < 10) {
-                jsonObject.addProperty("stock", producto.getStock());
-            }
-            // jsonObject.addProperty("stock", producto.getStock());
-            jsonObject.addProperty("precioVenta", producto.getPrecioVenta());
-
-            productosSinCosto.add(jsonObject);
-        }
-        return gson.toJson(productosSinCosto);
-    }
 
     @Override
     public List<ProductDTO> obtenerAgotados() {
@@ -64,6 +40,7 @@ public class MostrarProductos implements IMuestraTienda {
                         producto.getId(),
                         producto.getNombre(),
                         producto.getTipo(),
+                        producto.getStock(),
                         producto.getPrecioCosto(),
                         producto.getPrecioVenta()));
             }
@@ -72,33 +49,54 @@ public class MostrarProductos implements IMuestraTienda {
     }
 
     @Override
-    public Optional<ProductoEntidad> obtenerPorId(Long id) {
-        return productoRepositorio.findById(id);
+    public Optional<ProductDTO> obtenerPorId(Long id) {
+        return productoRepositorio.findById(id).map(product -> new ProductDTO(product.getId(), product.getNombre(), product.getTipo(), product.getStock(), product.getPrecioCosto(), product.getPrecioVenta()));
     }
 
     @Override
-    public ArrayList<ProductoEntidad> obtenerPorTipo(String tipo) {
-        return productoRepositorio.findByTipo(TipoProducto.valueOf(tipo));
+    public List<ProductDTO> obtenerPorTipo(String tipo) {
+        List<ProductoEntidad> productsEnt = productoRepositorio.findByTipo(TipoProducto.valueOf(tipo));
+        List<ProductDTO> products = new ArrayList<>();
+        List<ProductDTO> productos = (List<ProductDTO>) productsEnt.stream().map(prod -> toDTO(prod)).collect(Collectors.toList());
+        return productos;
     }
 
     @Override
-    public String obtenerPorTipoCliente(String tipo) {
-        ArrayList<ProductoEntidad> productosCompletos = (ArrayList<ProductoEntidad>) productoRepositorio
-                .findByTipo(TipoProducto.valueOf(tipo));
-        ArrayList<JsonObject> productosSinCosto = new ArrayList<>();
+    public List<ProductDTO> obtenerProductosParaCliente() {
+        List<ProductoEntidad> productosCompletos = (ArrayList<ProductoEntidad>) productoRepositorio.findAll();
+        List<ProductDTO> productosSinCosto = new ArrayList<>();
         for (ProductoEntidad producto : productosCompletos) {
-            JsonObject jsonObject = new JsonObject();
-            jsonObject.addProperty("id", producto.getId());
-            jsonObject.addProperty("nombre", producto.getNombre());
-            // Indica el stock únicamente si quedan menos de 10 unidades
-            if (producto.getStock() < 10) {
-                jsonObject.addProperty("stock", producto.getStock());
-            }
-            // jsonObject.addProperty("stock", producto.getStock());
-            jsonObject.addProperty("precioVenta", producto.getPrecioVenta());
-
-            productosSinCosto.add(jsonObject);
+            ProductDTO prodDTO = new ProductDTO(
+                    producto.getId(),
+                    producto.getNombre(),
+                    producto.getTipo(),
+                    producto.getStock() < 10 ? producto.getStock() : null,
+                    null,
+                    producto.getPrecioVenta()
+            );
+            productosSinCosto.add(prodDTO);
         }
-        return gson.toJson(productosSinCosto);
+        return productosSinCosto;
+    }
+
+    @Override
+    public List<ProductDTO> obtenerPorTipoCliente(String tipo) {
+        List <ProductoEntidad> productosCompletos = (ArrayList<ProductoEntidad>) productoRepositorio
+                .findByTipo(TipoProducto.valueOf(tipo));
+        List<ProductDTO> productosSinCosto = new ArrayList<>();
+        for (ProductoEntidad producto : productosCompletos) {
+            if (producto.getTipo().toString() == tipo){
+            ProductDTO productDTO = new ProductDTO(
+                    producto.getId(),
+                    producto.getNombre(),
+                    producto.getTipo(),
+                    producto.getStock() < 10 ? producto.getStock() : null,
+                    null,
+                    producto.getPrecioVenta()
+            );
+                productosSinCosto.add(productDTO);
+            }
+        }
+        return productosSinCosto;
     }
 }

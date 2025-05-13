@@ -2,6 +2,7 @@ package com.example.tp_tienda.controlador;
 
 import com.example.tp_tienda.dto.ProductDTO;
 import com.example.tp_tienda.entidades.ProductoEntidad;
+import com.example.tp_tienda.entidades.TipoProducto;
 import com.example.tp_tienda.servicio.Homepage;
 import com.example.tp_tienda.servicio.MostrarProductos;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,9 +57,8 @@ public class TiendaControlador {
         return mostrarProductos.obtenerProductos();
     }
 
-    // TODO: seguir implementando productDTO
     @GetMapping("/admin/{id}")
-    private Optional<ProductoEntidad> obtenerProductoPorId(@PathVariable("id") Long id) {
+    private Optional<ProductDTO> obtenerProductoPorId(@PathVariable("id") Long id) {
         return this.mostrarProductos.obtenerPorId(id);
     }
 
@@ -67,26 +67,26 @@ public class TiendaControlador {
         return mostrarProductos.obtenerAgotados();
     }
 
-    @GetMapping("/admin/tipo")
-    private <ProductoEntidad> obtenerProductoPorTipoVacio() {
-        return this.mostrarProductos.obtenerProductos();
-    }
+//    @GetMapping("/admin/tipo")
+//    private <ProductoEntidad> obtenerProductoPorTipoVacio() {
+//        return this.mostrarProductos.obtenerProductos();
+//    }
 
-    // TODO: seguir implementando productDTO
     @GetMapping("/admin/tipo/{tipo}")
-    private ArrayList<ProductoEntidad> obtenerProductoPorTipo(@PathVariable("tipo") String tipo) {
-        return this.mostrarProductos.obtenerPorTipo(tipo.toLowerCase());
+    private List<ProductDTO> obtenerProductoPorTipo(@PathVariable("tipo") String tipo) {
+        TipoProducto tipoEnum = TipoProducto.valueOf(tipo.toUpperCase());
+        return this.mostrarProductos.obtenerPorTipo(tipoEnum.toString());
     }
 
-    // TODO: seguir implementando productDTO
     @GetMapping("/cliente")
-    private String obtenerProductosParaCliente() {
+    private List <ProductDTO> obtenerProductosParaCliente() {
         return mostrarProductos.obtenerProductosParaCliente();
     }
 
     // TODO: seguir implementando productDTO
     @GetMapping("/cliente/tipo/{tipo}")
-    private String obtenerProductosPorTipoParaCliente(@PathVariable("tipo") String tipo) {
-        return mostrarProductos.obtenerPorTipoCliente(tipo);
+    private List <ProductDTO> obtenerProductosPorTipoParaCliente(@PathVariable("tipo") String tipo) {
+        TipoProducto tipoEnum = TipoProducto.valueOf(tipo.toUpperCase());
+        return mostrarProductos.obtenerPorTipoCliente(tipoEnum.toString());
     }
 }

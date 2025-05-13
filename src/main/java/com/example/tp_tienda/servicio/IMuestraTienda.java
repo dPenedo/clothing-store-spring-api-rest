@@ -10,13 +10,13 @@ import java.util.Optional;
 public interface IMuestraTienda {
     List<ProductDTO> obtenerProductos();
 
-    String obtenerProductosParaCliente();
-
     List<ProductDTO> obtenerAgotados();
 
-    Optional<ProductoEntidad> obtenerPorId(Long id);
+    Optional<ProductDTO> obtenerPorId(Long id);
 
-    ArrayList<ProductoEntidad> obtenerPorTipo(String tipo);
+    List<ProductDTO> obtenerPorTipo(String tipo);
 
-    String obtenerPorTipoCliente(String tipo);
+    List<ProductDTO> obtenerProductosParaCliente();
+
+    List<ProductDTO> obtenerPorTipoCliente(String tipo);
 }

@@ -9,6 +9,7 @@ public class ProductMapper {
                 producto.getId(),
                 producto.getNombre(),
                 producto.getTipo(),
+                producto.getStock(),
                 producto.getPrecioCosto(),
                 producto.getPrecioVenta()
         );
