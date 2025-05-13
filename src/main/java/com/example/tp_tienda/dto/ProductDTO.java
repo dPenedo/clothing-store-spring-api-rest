@@ -1,16 +1,16 @@
 package com.example.tp_tienda.dto;
 
-import com.example.tp_tienda.entidades.TipoProducto;
+import com.example.tp_tienda.entidades.TypeProduct;
 
 public class ProductDTO {
     private Long id;
     private String nombre;
-    private TipoProducto tipo = TipoProducto.SIN_TIPO;
+    private TypeProduct tipo = TypeProduct.SIN_TIPO;
     private Integer stock;
     private Integer precioCosto;
     private int precioVenta;
 
-    public ProductDTO(Long id, String nombre, TipoProducto tipoProducto, Integer stock, Integer precioCosto, int precioVenta) {
+    public ProductDTO(Long id, String nombre, TypeProduct tipoProducto, Integer stock, Integer precioCosto, int precioVenta) {
         this.id = id;
         this.nombre = nombre;
         this.tipo = tipoProducto;
@@ -34,11 +34,11 @@ public class ProductDTO {
         this.nombre = nombre;
     }
 
-    public TipoProducto getTipo() {
+    public TypeProduct getTipo() {
         return tipo;
     }
 
-    public void setTipo(TipoProducto tipo) {
+    public void setTipo(TypeProduct tipo) {
         this.tipo = tipo;
     }
 

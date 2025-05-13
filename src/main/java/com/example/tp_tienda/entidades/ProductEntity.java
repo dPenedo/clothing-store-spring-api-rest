@@ -8,26 +8,26 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "productos")
-public class ProductoEntidad {
+@Table(name = "products")
+public class ProductEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
     private Long id;
     private String nombre;
-    private TipoProducto tipo = TipoProducto.SIN_TIPO;
+    private TypeProduct tipo = TypeProduct.SIN_TIPO;
     private int stock;
 
     private int precioCosto;
     private int precioVenta;
 
-    public ProductoEntidad() {
+    public ProductEntity() {
     }
 
-    public ProductoEntidad(Long id, String nombre, TipoProducto tipo, int stock, int precioCosto, int precioVenta) {
+    public ProductEntity(Long id, String nombre, TypeProduct tipo, int stock, int precioCosto, int precioVenta) {
         this.id = id;
         this.nombre = nombre;
-        this.tipo = TipoProducto.SIN_TIPO;
+        this.tipo = TypeProduct.SIN_TIPO;
         this.stock = stock;
         this.precioCosto = precioCosto;
         this.precioVenta = precioVenta;
@@ -46,13 +46,13 @@ public class ProductoEntidad {
         this.nombre = nombre;
     }
 
-    public TipoProducto getTipo() {
+    public TypeProduct getTipo() {
         return tipo;
     }
 
-    public void setTipo(TipoProducto tipo) {
+    public void setTipo(TypeProduct tipo) {
         if (tipo == null) {
-            this.tipo = TipoProducto.SIN_TIPO;
+            this.tipo = TypeProduct.SIN_TIPO;
         } else {
             this.tipo = tipo;
         }

@@ -1,6 +1,6 @@
 package com.example.tp_tienda.entidades;
 
-public enum TipoProducto {
+public enum TypeProduct {
     CALZADO{
         public String toString(){
             return "CALZADO";

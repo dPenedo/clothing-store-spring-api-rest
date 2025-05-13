@@ -1,11 +1,10 @@
 package com.example.tp_tienda.servicio;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class Homepage {
-    public String mostrarHomepage() {
+public class HomepageService {
+    public String getHomepage() {
         // return \" <h1 style=\\"display: flex; justify-content: center; padding:
         // 2rem\\"> Bienvenidos/as a nuestra tienda de ropa</h1><h4 style=\\"display:
         // flex; justify-content: center; padding: 1rem\\">¿Qué tipo de usuario

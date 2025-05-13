@@ -1,10 +1,10 @@
 package com.example.tp_tienda.map;
 
 import com.example.tp_tienda.dto.ProductDTO;
-import com.example.tp_tienda.entidades.ProductoEntidad;
+import com.example.tp_tienda.entidades.ProductEntity;
 
 public class ProductMapper {
-    public static ProductDTO toDTO(ProductoEntidad producto){
+    public static ProductDTO toDTO(ProductEntity producto){
         return new ProductDTO(
                 producto.getId(),
                 producto.getNombre(),
