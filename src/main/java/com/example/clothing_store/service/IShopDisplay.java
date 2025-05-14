@@ -1,6 +1,6 @@
-package com.example.tp_tienda.servicio;
+package com.example.clothing_store.service;
 
-import com.example.tp_tienda.dto.ProductDTO;
+import com.example.clothing_store.dto.ProductDTO;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,34 +1,34 @@
-package com.example.tp_tienda.entidades;
+package com.example.clothing_store.entities;
 
 public enum TypeProduct {
-    CALZADO{
+    SHOES {
         public String toString(){
-            return "CALZADO";
+            return "SHOES";
         }
     },
-    PANTALON{
+    PANTS {
         public String toString(){
-            return "PANTALON";
+            return "PANTS";
         }
     },
-    REMERA{
+    SHIRT {
         public String toString(){
-            return "REMERA";
+            return "SHIRT";
         }
     },
-    CHAQUETA{
+    JACKET {
         public String toString(){
-            return "CHAQUETA";
+            return "JACKET";
         }
     },
-    ACCESORIO{
+    ACCESORY {
         public String toString(){
-            return "ACCESORIO";
+            return "ACCESORY";
         }
     },
-    SIN_TIPO{
+    NO_TYPE {
         public String toString(){
-            return "SIN_TIPO";
+            return "NO_TYPE";
         }
     }
 }

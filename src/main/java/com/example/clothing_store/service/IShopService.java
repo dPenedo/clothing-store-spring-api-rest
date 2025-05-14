@@ -1,6 +1,6 @@
-package com.example.tp_tienda.servicio;
+package com.example.clothing_store.service;
 
-import com.example.tp_tienda.entidades.ProductEntity;
+import com.example.clothing_store.entities.ProductEntity;
 
 public interface IShopService {
 

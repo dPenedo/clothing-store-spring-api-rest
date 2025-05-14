@@ -1,13 +1,13 @@
-package com.example.tp_tienda;
+package com.example.clothing_store;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class TpTiendaApplication {
+public class ClothingStoreApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(TpTiendaApplication.class, args);
+        SpringApplication.run(ClothingStoreApplication.class, args);
     }
 
 }

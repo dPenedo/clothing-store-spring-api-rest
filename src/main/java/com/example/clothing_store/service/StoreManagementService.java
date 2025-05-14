@@ -1,10 +1,10 @@
-package com.example.tp_tienda.servicio;
+package com.example.clothing_store.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.tp_tienda.entidades.ProductEntity;
-import com.example.tp_tienda.repositorio.ProductRepository;
+import com.example.clothing_store.entities.ProductEntity;
+import com.example.clothing_store.repository.ProductRepository;
 
 @Service
 public class StoreManagementService implements IShopService {
@@ -19,10 +19,10 @@ public class StoreManagementService implements IShopService {
     @Override
     public ProductEntity updateProduct(ProductEntity updatedProduct, Long id) {
         ProductEntity productToUpdate = productRepository.findById(id).get();
-        productToUpdate.setNombre(updatedProduct.getNombre());
-        productToUpdate.setTipo(updatedProduct.getTipo());
+        productToUpdate.setName(updatedProduct.getName());
+        productToUpdate.setType(updatedProduct.getType());
         productToUpdate.setStock(updatedProduct.getStock());
-        productToUpdate.setPrecioCosto(updatedProduct.getPrecioCosto());
+        productToUpdate.setCostPrice(updatedProduct.getCostPrice());
         return productRepository.save(productToUpdate);
     }
 
