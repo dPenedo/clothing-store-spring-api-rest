@@ -66,10 +66,10 @@ public class StoreController {
         return productDisplayService.getOutOfStockProducts();
     }
 
-//    @GetMapping("/admin/tipo")
-//    private <ProductoEntidad> obtenerProductoPorTipoVacio() {
-//        return this.mostrarProductos.obtenerProductos();
-//    }
+    @GetMapping("/types")
+    private List<String> obtenerProductoPorTipoVacio() {
+        return this.productDisplayService.getListOfTypeOfProducts();
+    }
 
     @GetMapping("/admin/type/{type}")
     private List<ProductDTO> getProductsByType(@PathVariable("type") String type) {
@@ -78,12 +78,12 @@ public class StoreController {
     }
 
     @GetMapping("/client")
-    private List <ProductDTO> getProductsByClient() {
+    private List<ProductDTO> getProductsByClient() {
         return productDisplayService.getProductsByClient();
     }
 
     @GetMapping("/client/type/{type}")
-    private List <ProductDTO> getProductsByTypeByClient(@PathVariable("type") String type) {
+    private List<ProductDTO> getProductsByTypeByClient(@PathVariable("type") String type) {
         TypeProduct typeEnum = TypeProduct.valueOf(type.toUpperCase());
         return productDisplayService.getProductsByTypeByClient(typeEnum.toString());
     }

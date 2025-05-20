@@ -22,10 +22,10 @@ public class ProductDisplayService implements IShopDisplay {
     @Override
     public List<ProductDTO> getAllProducts() {
         ArrayList<ProductEntity> productsEnt = (ArrayList<ProductEntity>) productRepository.findAll();
-        List<ProductDTO> products = (List<ProductDTO>) productsEnt.stream().map(prod -> toDTO(prod)).collect(Collectors.toList());
+        List<ProductDTO> products = (List<ProductDTO>) productsEnt.stream().map(prod -> toDTO(prod))
+                .collect(Collectors.toList());
         return products;
     }
-
 
     @Override
     public List<ProductDTO> getOutOfStockProducts() {
@@ -46,14 +46,26 @@ public class ProductDisplayService implements IShopDisplay {
     }
 
     @Override
-    public Optional<ProductDTO> getById(Long id) {
-        return productRepository.findById(id).map(product -> new ProductDTO(product.getId(), product.getName(), product.getType(), product.getStock(), product.getCostPrice(), product.getSalePrice()));
+    public List<String> getListOfTypeOfProducts() {
+        List<String> listOfTypes = new ArrayList<>();
+        for (TypeProduct typeProduct : TypeProduct.values()) {
+            listOfTypes.add(typeProduct.toString());
+        }
+        return listOfTypes;
+
     }
 
     @Override
-    public List<ProductDTO> getProductsByType(String tipo) {
-        List<ProductEntity> productsEnt = productRepository.findByType(TypeProduct.valueOf(tipo));
-        List<ProductDTO> products = (List<ProductDTO>) productsEnt.stream().map(prod -> toDTO(prod)).collect(Collectors.toList());
+    public Optional<ProductDTO> getById(Long id) {
+        return productRepository.findById(id).map(product -> new ProductDTO(product.getId(), product.getName(),
+                product.getType(), product.getStock(), product.getCostPrice(), product.getSalePrice()));
+    }
+
+    @Override
+    public List<ProductDTO> getProductsByType(String type) {
+        List<ProductEntity> productsEnt = productRepository.findByType(TypeProduct.valueOf(type));
+        List<ProductDTO> products = (List<ProductDTO>) productsEnt.stream().map(prod -> toDTO(prod))
+                .collect(Collectors.toList());
         return products;
     }
 
@@ -68,8 +80,7 @@ public class ProductDisplayService implements IShopDisplay {
                     product.getType(),
                     product.getStock() < 10 ? product.getStock() : null,
                     null,
-                    product.getSalePrice()
-            );
+                    product.getSalePrice());
             productsForClient.add(prodDTO);
         }
         return productsForClient;
@@ -77,19 +88,18 @@ public class ProductDisplayService implements IShopDisplay {
 
     @Override
     public List<ProductDTO> getProductsByTypeByClient(String type) {
-        List <ProductEntity> allProducts = (ArrayList<ProductEntity>) productRepository
+        List<ProductEntity> allProducts = (ArrayList<ProductEntity>) productRepository
                 .findByType(TypeProduct.valueOf(type));
         List<ProductDTO> productsForClient = new ArrayList<>();
         for (ProductEntity producto : allProducts) {
-            if (producto.getType().toString() == type){
-            ProductDTO productDTO = new ProductDTO(
-                    producto.getId(),
-                    producto.getName(),
-                    producto.getType(),
-                    producto.getStock() < 10 ? producto.getStock() : null,
-                    null,
-                    producto.getSalePrice()
-            );
+            if (producto.getType().toString() == type) {
+                ProductDTO productDTO = new ProductDTO(
+                        producto.getId(),
+                        producto.getName(),
+                        producto.getType(),
+                        producto.getStock() < 10 ? producto.getStock() : null,
+                        null,
+                        producto.getSalePrice());
                 productsForClient.add(productDTO);
             }
         }

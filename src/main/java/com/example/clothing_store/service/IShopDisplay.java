@@ -10,6 +10,8 @@ public interface IShopDisplay {
 
     List<ProductDTO> getOutOfStockProducts();
 
+    List<String> getListOfTypeOfProducts();
+
     Optional<ProductDTO> getById(Long id);
 
     List<ProductDTO> getProductsByType(String tipo);
