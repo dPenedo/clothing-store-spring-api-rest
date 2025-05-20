@@ -52,7 +52,6 @@ public class ProductDisplayService implements IShopDisplay {
             listOfTypes.add(typeProduct.toString());
         }
         return listOfTypes;
-
     }
 
     @Override
