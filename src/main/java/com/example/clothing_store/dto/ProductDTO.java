@@ -8,14 +8,15 @@ public class ProductDTO {
     private TypeProduct type = TypeProduct.NO_TYPE;
     private Integer stock;
     private Integer costPrice;
-    private int sellPrice;
+    private int salePrice;
 
-    public ProductDTO(Long id, String name, TypeProduct typeProduct, Integer stock, Integer costPrice, int sellPrice) {
+    public ProductDTO(Long id, String name, TypeProduct typeProduct, Integer stock, Integer costPrice, int salePrice) {
         this.id = id;
         this.name = name;
         this.type = typeProduct;
+        this.stock = stock;
         this.costPrice = costPrice;
-        this.sellPrice = sellPrice;
+        this.salePrice = salePrice;
     }
 
     public Long getId() {
@@ -58,11 +59,11 @@ public class ProductDTO {
         this.costPrice = costPrice;
     }
 
-    public int getSellPrice() {
-        return sellPrice;
+    public int getSalePrice() {
+        return salePrice;
     }
 
-    public void setSellPrice(int sellPrice) {
-        this.sellPrice = sellPrice;
+    public void setSalePrice(int salePrice) {
+        this.salePrice = salePrice;
     }
 }

@@ -20,9 +20,10 @@ public class ProductDisplayService implements IShopDisplay {
     ProductRepository productRepository;
 
     @Override
+//   TODO: Arreglar, devuelve stock como null
     public List<ProductDTO> getAllProducts() {
-        ArrayList<ProductEntity> productsEnt = (ArrayList<ProductEntity>) productRepository.findAll();
-        List<ProductDTO> products = (List<ProductDTO>) productsEnt.stream().map(prod -> toDTO(prod))
+        List<ProductEntity> productsEnt = (List<ProductEntity>) productRepository.findAll();
+        List<ProductDTO> products = productsEnt.stream().map(prod -> toDTO(prod))
                 .collect(Collectors.toList());
         return products;
     }
@@ -62,7 +63,7 @@ public class ProductDisplayService implements IShopDisplay {
 
     @Override
     public List<ProductDTO> getProductsByType(String type) {
-        List<ProductEntity> productsEnt = productRepository.findByType(TypeProduct.valueOf(type));
+        List<ProductEntity> productsEnt = productRepository.findByType(TypeProduct.valueOf(type.toUpperCase()));
         List<ProductDTO> products = (List<ProductDTO>) productsEnt.stream().map(prod -> toDTO(prod))
                 .collect(Collectors.toList());
         return products;
@@ -70,7 +71,7 @@ public class ProductDisplayService implements IShopDisplay {
 
     @Override
     public List<ProductDTO> getProductsByClient() {
-        List<ProductEntity> listOfAllProducts = (ArrayList<ProductEntity>) productRepository.findAll();
+        List<ProductEntity> listOfAllProducts = (List<ProductEntity>) productRepository.findAll();
         List<ProductDTO> productsForClient = new ArrayList<>();
         for (ProductEntity product : listOfAllProducts) {
             ProductDTO prodDTO = new ProductDTO(

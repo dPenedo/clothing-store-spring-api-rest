@@ -33,7 +33,6 @@ public class HttpRequestTest {
         List<String> listOfEnums = Arrays.stream(TypeProduct.values())
                 .map(TypeProduct::toString)
                 .toList();
-
         assertThat(response)
                 .isNotNull()
                 .containsExactlyInAnyOrderElementsOf(listOfEnums);

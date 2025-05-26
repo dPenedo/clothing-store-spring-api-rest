@@ -9,8 +9,8 @@ public class ProductMapper {
                 product.getId(),
                 product.getName(),
                 product.getType(),
-                product.getStock(),
-                product.getCostPrice(),
+                Integer.valueOf(product.getStock()),
+                Integer.valueOf(product.getCostPrice()),
                 product.getSalePrice()
         );
     }
