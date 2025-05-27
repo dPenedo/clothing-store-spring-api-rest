@@ -20,7 +20,7 @@ public class ProductDisplayService implements IShopDisplay {
     ProductRepository productRepository;
 
     @Override
-//   TODO: Arreglar, devuelve stock como null
+    // TODO: Arreglar, devuelve stock como null
     public List<ProductDTO> getAllProducts() {
         List<ProductEntity> productsEnt = (List<ProductEntity>) productRepository.findAll();
         List<ProductDTO> products = productsEnt.stream().map(prod -> toDTO(prod))
@@ -63,7 +63,13 @@ public class ProductDisplayService implements IShopDisplay {
 
     @Override
     public List<ProductDTO> getProductsByType(String type) {
-        List<ProductEntity> productsEnt = productRepository.findByType(TypeProduct.valueOf(type.toUpperCase()));
+        TypeProduct typeProduct;
+        try {
+            typeProduct = TypeProduct.valueOf(type.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            return List.of();
+        }
+        List<ProductEntity> productsEnt = productRepository.findByType(typeProduct);
         List<ProductDTO> products = (List<ProductDTO>) productsEnt.stream().map(prod -> toDTO(prod))
                 .collect(Collectors.toList());
         return products;
@@ -88,20 +94,24 @@ public class ProductDisplayService implements IShopDisplay {
 
     @Override
     public List<ProductDTO> getProductsByTypeByClient(String type) {
-        List<ProductEntity> allProducts = (ArrayList<ProductEntity>) productRepository
-                .findByType(TypeProduct.valueOf(type));
+        TypeProduct typeProduct;
+        try {
+            typeProduct = TypeProduct.valueOf(type.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            return List.of();
+        }
+        List<ProductEntity> productsByType = productRepository
+                .findByType(typeProduct);
         List<ProductDTO> productsForClient = new ArrayList<>();
-        for (ProductEntity producto : allProducts) {
-            if (producto.getType().toString() == type) {
+        for (ProductEntity prod : productsByType) {
                 ProductDTO productDTO = new ProductDTO(
-                        producto.getId(),
-                        producto.getName(),
-                        producto.getType(),
-                        producto.getStock() < 10 ? producto.getStock() : null,
+                        prod.getId(),
+                        prod.getName(),
+                        prod.getType(),
+                        prod.getStock() < 10 ? prod.getStock() : null,
                         null,
-                        producto.getSalePrice());
+                        prod.getSalePrice());
                 productsForClient.add(productDTO);
-            }
         }
         return productsForClient;
     }
