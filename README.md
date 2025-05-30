@@ -19,15 +19,33 @@ Each product includes the following fields:
 
 ## Homepage
 
-Visiting the root path (`"/"`) in the browser displays a simple HTML homepage with links to key API endpoints:
+## Homepage
 
-- List all products
-- Show a limited number of products
-- Get product by ID
-- View out-of-stock products
-- ...
+Visiting the root path (`"/"`) in the browser displays a simple HTML homepage with links to the main API endpoints.
 
-There are separate routes for **admins** and **clients**.
+There are separate routes for **admins** and **customers**, each with access to different product-related views:
+
+- **Admin Endpoints:**
+
+  - View all products
+  - View out-of-stock products
+  - View footwear
+  - View pants
+  - View shirts
+  - View jackets
+  - View accessories
+
+- **Customer Endpoints:**
+  - View all products
+  - View footwear
+  - View pants
+  - View shirts
+  - View jackets
+  - View accessories
+
+Both admin and customer routes also support viewing individual products by ID.
+
+Additionally, there is an endpoint at `/types` that returns a list of all available product types.
 
 ## Design Pattern
 
@@ -54,4 +72,3 @@ mvn spring-boot:run
 ```
 
 5. Access the homepage at: `http://localhost:8080`
-
